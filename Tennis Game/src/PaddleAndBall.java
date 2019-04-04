@@ -28,7 +28,7 @@ public class PaddleAndBall implements ActionListener
 		Handler2 h2=new Handler2();
 		p1.addKeyListener(h2);
 		p1.requestFocusInWindow();//to shift focus from frame to panel
-		Timer t=new Timer(12,this);
+		Timer t=new Timer(20,this);
 		t.start();
 	}
 	private class Handler1 extends MouseMotionAdapter
@@ -43,18 +43,21 @@ public class PaddleAndBall implements ActionListener
 			{
 				p1.mY=me.getY();
 			}
-			preY=me.getY();
 			p1.repaint();
 		}
 	}
 	public void actionPerformed(ActionEvent ae)
 	{
 		if(f.getWidth()-60==p1.bX)
-			x=-x;
+		{
+			p1.repaint();
+		}
 		if(f.getHeight()-60==p1.bY)
 			y=-y;
 		if(p1.bX==0)
-			x=a;                       
+		{
+			p1.repaint();
+		}
 		if(p1.bY==0)
 			y=b;
 		if((p1.bY>=p1.mY && p1.bY<=p1.mY+60) && (p1.bX==30 || p1.bX==550))//(for reflection of ball after hitting paddle)
@@ -66,7 +69,7 @@ public class PaddleAndBall implements ActionListener
 		p1.bY+=y;
 		p1.repaint();
 	}
-	private class Handler2 extends KeyAdapter //focus problem (by default focus is always on frame we have to shift the focus to the panel).
+	private class Handler2 extends KeyAdapter //(by default focus is always on frame we have to shift the focus to the panel).
 	{
 		public void keyPressed(KeyEvent ke)
 		{
